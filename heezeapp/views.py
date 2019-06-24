@@ -15,4 +15,17 @@ from heezeapp.forms import SignupForm
 class LoginView(auth_views.LoginView):
     """Login view."""
 
-    template_name = 'login.html'
+    template_name = 'usuarios/login.html'
+
+
+class SignupView(FormView):
+    """Users sign up view."""
+
+    template_name = 'usuarios/signup.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('heezeapp:login')
+
+    def form_valid(self, form):
+        """Guarda el dato del formulario."""
+        form.save()
+        return super().form_valid(form)

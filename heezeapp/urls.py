@@ -7,7 +7,6 @@ from django.urls import path
 from heezeapp import views
 
 urlpatterns = [
-
-    # Management
-    path(route='login/', view=views.LoginView.as_view(), name='login')
+    path(route='login/', view=views.LoginView.as_view(), name='login'),
+    path(route='signup/', view=views.SignupView.as_view(), name='signup'),
 ]
