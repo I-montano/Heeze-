@@ -1,11 +1,14 @@
 # Django
-# Django
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 # Models
 from .models.Usuario import Usuario
+from .models.Evento import Evento
+from .models.Producto import Producto
+from .models.Comision import Comision
 from .models.utils.HeezeSettings import HeezeSettings
+from .models.utils.AcercaDeMi import AcercaDeMi
 
 # Forms
 from heezeapp.forms import SignupForm
@@ -48,55 +51,29 @@ def signup_view(request):
                   context={'form': form})
 
 
-# # Vistas de Usuario
-# class LoginView(auth_views.LoginView):
-#     """Login view."""
+def acerca_de_mi_view(request):
+    """Acerca de mi view."""
+    fanny = AcercaDeMi.objects.all().filter(pk=1)
+    return render(request, 'acerca_de_mi.html', context={'fanny': fanny[0]})
 
-#     template_name = 'usuarios/login.html'
 
-# class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
-#     """Logout view."""
+def mis_disenos_view(request):
+    """Mis diseños view."""
+    disenos = Producto.objects.all().order_by('-creado_en')
+    return render(request, 'mis_disenos.html', context={'disenos': disenos})
 
-#     template_name = 'usuarios/logout.html'
 
-# class SignupView(FormView):
-#     """Users sign up view."""
+def proximos_eventos_view(request):
+    """Próximos eventos view."""
+    eventos = Evento.objects.all().order_by('-creado_en')
+    return render(request,
+                  'proximos_eventos.html',
+                  context={'eventos': eventos})
 
-#     template_name = 'usuarios/signup.html'
-#     form_class = SignupForm
-#     success_url = reverse_lazy('heezeapp:login')
 
-#     def form_valid(self, form):
-#         """Guarda el dato del formulario."""
-#         form.save()
-#         return super().form_valid(form)
-
-# class UpdateProfileView(LoginRequiredMixin, UpdateView):
-#     """Vista de actualización de Usuario."""
-
-#     template_name = 'actualizacion_usuario.html'
-#     model = Usuario
-#     fields = ['phone_number']
-
-#     def get_object(self):
-#         """Return user's profile."""
-#         return self.request.user.usuario
-
-#     def get_success_url(self):
-#         """Return to user's profile."""
-#         username = self.object.user.username
-#         return reverse('heezeapp:detail', kwargs={'username': username})
-
-# # Vistas de Empresa
-# class LandingView(TemplateView):
-#     model = HeezeSettings
-#     template_name = 'landing.html'
-
-#     def get_context_data(self, **kwargs):
-#         # Call the base implementation first to get a context
-#         context = super(LandingView, self).get_context_data(**kwargs)
-#         # Add in a QuerySet of all the team members
-#         context['empresa'] = self.get_object().filter(pk=1)
-#         return context
-
-# # Utilidades (Comisiones)
+@login_required
+def comisiones_view(request):
+    """Comisiones view."""
+    comisiones_pendientes = Comision.objects.all().order_by('-created')
+    return render(request, 'comision.html',
+                  {'comisiones_pendientes': comisiones_pendientes})
