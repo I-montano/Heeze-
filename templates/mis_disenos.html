@@ -1,1 +1,7 @@
-disenos
+{% extends "base.html" %} {% block head_content %}
+<title>Mis Diseños</title>
+{% endblock %} {% block container %}
+  {% for diseno in disenos%}
+    <p>{{ diseno.nombre }}</p>
+  {% endfor %}
+{% endblock %}

@@ -1,1 +1,7 @@
-proximos_eventos
+{% extends "base.html" %} {% block head_content %}
+<title>Próximos Eventos</title>
+{% endblock %} {% block container %}
+  {% for evento in eventos %}
+    <p>{{ evento.nombre }}</p>
+  {% endfor %}
+{% endblock %}

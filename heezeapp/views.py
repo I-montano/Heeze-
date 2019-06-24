@@ -1,5 +1,6 @@
 # Django
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 # Models
@@ -11,7 +12,7 @@ from .models.utils.HeezeSettings import HeezeSettings
 from .models.utils.AcercaDeMi import AcercaDeMi
 
 # Forms
-from heezeapp.forms import SignupForm
+from .forms import SignupForm
 
 
 def detalle_empresa(request):
@@ -28,12 +29,19 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('feed')
+            return redirect('landing')
         else:
-            return render(request, 'login.html',
-                          {'error': 'Invalid username and password'})
+            return render(request, 'usuarios/login.html',
+                          {'error': 'Password o username inválido.'})
 
-    return render(request, 'login.html')
+    return render(request, 'usuarios/login.html')
+
+
+@login_required
+def logout_view(request):
+    """Logout view."""
+    logout(request)
+    return redirect('landing')
 
 
 def signup_view(request):
@@ -74,6 +82,9 @@ def proximos_eventos_view(request):
 @login_required
 def comisiones_view(request):
     """Comisiones view."""
-    comisiones_pendientes = Comision.objects.all().order_by('-created')
-    return render(request, 'comision.html',
+    comisiones_pendientes = Comision.objects.all().order_by('-creado_en')
+    if not comisiones_pendientes:
+        return render(request, 'comision.html',
+                      {'comisiones_pendientes': comisiones_pendientes})
+    return render(request, 'comision_pendiente.html',
                   {'comisiones_pendientes': comisiones_pendientes})
