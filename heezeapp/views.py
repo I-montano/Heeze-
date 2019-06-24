@@ -88,3 +88,9 @@ def comisiones_view(request):
                       {'comisiones_pendientes': comisiones_pendientes})
     return render(request, 'comision_pendiente.html',
                   {'comisiones_pendientes': comisiones_pendientes})
+
+
+@login_required
+def carrito_de_compras_view(request):
+    compras = []
+    return render(request, 'carrito_de_compras.html', {'compras': compras})
