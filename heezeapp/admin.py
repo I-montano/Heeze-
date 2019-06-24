@@ -4,17 +4,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 # Models
-from app.models.Usuario import Usuario
-from app.models.Categoria import Categoria
-from app.models.Comision import Comision
-from app.models.Producto import Producto
-from app.models.Venta import Venta
-from app.models.Venta import Detalle_Venta
-from app.models.Evento import Evento
+from heezeapp.models.Usuario import Usuario
+from heezeapp.models.Categoria import Categoria
+from heezeapp.models.Comision import Comision
+from heezeapp.models.Producto import Producto
+from heezeapp.models.Venta import Venta
+from heezeapp.models.Venta import Detalle_Venta
+from heezeapp.models.Evento import Evento
 
 # Utils
-from app.models.utils.models import HeezeSettings
-from app.models.utils.models import AcercaDeMi
+from heezeapp.models.utils.HeezeSettings import HeezeSettings
+from heezeapp.models.utils.AcercaDeMi import AcercaDeMi
 
 
 @admin.register(Usuario)
@@ -79,15 +79,15 @@ class ProductoAdmin(admin.ModelAdmin):
 
 @admin.register(Venta)
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('fecha', 'email', 'precio_total')
-    search_fields = ('fecha', 'email', 'precio_total')
+    list_display = ('fecha', 'usuario', 'precio_total')
+    search_fields = ('fecha', 'usuario', 'precio_total')
     list_filter = ('creado_en', 'modificado_en')
 
 
 @admin.register(Detalle_Venta)
 class Detalle_VentaVentaAdmin(admin.ModelAdmin):
-    list_display = ('precio', 'id_producto', 'id_venta')
-    search_fields = ('precio', 'id_producto', 'id_venta')
+    list_display = ('precio', 'producto', 'venta')
+    search_fields = ('precio', 'producto', 'venta')
     list_filter = ('precio', 'creado_en', 'modificado_en')
 
 

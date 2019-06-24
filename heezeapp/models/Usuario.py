@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 
 # Utils
-from app.models.utils.models import HeezeClase
+from heezeapp.models.utils.HeezeClase import HeezeClase
 
 
 class Usuario(HeezeClase, models.Model):

@@ -1,3 +1,6 @@
+# Django
+from django.db import models
+
 # Local
 from .Singleton import SingletonModel
 

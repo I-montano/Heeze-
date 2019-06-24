@@ -15,9 +15,7 @@ class Venta(HeezeClase, models.Model):
     precio_total = models.PositiveIntegerField()
 
     # Llave foránea
-    id_usuario = models.ForeignKey(Usuario,
-                                   on_delete=models.SET_NULL,
-                                   null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
 
 
 class Detalle_Venta(HeezeClase, models.Model):
@@ -25,5 +23,5 @@ class Detalle_Venta(HeezeClase, models.Model):
     precio = models.PositiveIntegerField(default=0)
 
     # Llave foránea
-    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    id_venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    venta = models.ForeignKey(Venta, on_delete=models.CASCADE)

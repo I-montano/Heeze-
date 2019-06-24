@@ -5,7 +5,7 @@ from django.db import models
 from .Producto import Producto
 
 # Utils
-from app.models.utils.models import HeezeClase
+from heezeapp.models.utils.HeezeClase import HeezeClase
 
 
 class Categoria(HeezeClase, models.Model):
@@ -13,8 +13,9 @@ class Categoria(HeezeClase, models.Model):
     descripcion = models.CharField(max_length=100, blank=True)
 
     # Llave foránea
-    id_producto = models.ForeignKey(
-        Producto, on_delete=models.SET_NULL, null=True)
+    id_producto = models.ForeignKey(Producto,
+                                    on_delete=models.SET_NULL,
+                                    null=True)
 
     def __str__(self):
         return self.nombre

@@ -2,7 +2,7 @@
 from django.db import models
 
 # Utils
-from app.models.utils.models import HeezeClase
+from heezeapp.models.utils.HeezeClase import HeezeClase
 
 
 class Producto(HeezeClase, models.Model):
