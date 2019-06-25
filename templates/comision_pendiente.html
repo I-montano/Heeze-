@@ -1,7 +1,5 @@
 {% extends "base.html" %} {% block head_content %}
 <title>Comisiones</title>
 {% endblock %} {% block container %}
-{% for comision in comisiones_pendientes %}
-  <p>{{comision.user.email}}</p>
-{% endfor %}
+  <p>{{comisiones_pendientes.nombre}}</p>
 {% endblock %}

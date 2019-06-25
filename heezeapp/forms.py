@@ -46,3 +46,18 @@ class SignupForm(forms.Form):
         user = User.objects.create_user(**data)
         usuario = Usuario(user=user)
         usuario.save()
+
+
+class ComisionForm(forms.Form):
+    """Formulario de comisión."""
+    nombre = forms.CharField(min_length=4, max_length=100)
+    comentario = forms.CharField(max_length=500)
+    archivo = forms.FileField()
+
+    def save(self):
+        """Crear user y usuario"""
+        data = self.cleaned_data
+
+        comision = Comision.objects.create_user(**data)
+        comision = Comision(comision=comision)
+        comision.save()

@@ -12,7 +12,7 @@ from .models.utils.HeezeSettings import HeezeSettings
 from .models.utils.AcercaDeMi import AcercaDeMi
 
 # Forms
-from .forms import SignupForm
+from .forms import SignupForm, ComisionForm
 
 
 def detalle_empresa(request):
@@ -82,7 +82,7 @@ def proximos_eventos_view(request):
 @login_required
 def comisiones_view(request):
     """Comisiones view."""
-    comisiones_pendientes = Comision.objects.all().order_by('-creado_en')
+    comisiones_pendientes = Comision.objects.filter().order_by('-creado_en')
     if not comisiones_pendientes:
         return render(request, 'comision.html',
                       {'comisiones_pendientes': comisiones_pendientes})
@@ -94,3 +94,17 @@ def comisiones_view(request):
 def carrito_de_compras_view(request):
     compras = []
     return render(request, 'carrito_de_compras.html', {'compras': compras})
+
+
+def realizar_comision_view(request):
+    """Formulario de Comision."""
+    if request.method == 'POST':
+        form = ComisionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('comision_pendiente.html')
+    else:
+        form = ComisionForm()
+    return render(request=request,
+                  template_name='comision_pendiente.html',
+                  context={'comision_pendiente': form})
